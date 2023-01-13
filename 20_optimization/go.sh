@@ -3,13 +3,8 @@
 PYTHON=/usr/bin/python3
 SCRIPT=optimization.py
 
-# SCRIPT=z2j.py
-
-echo ${SCRIPT}
-
 # いじるところ：
-DATE=20220100  # handlerのdateと一致してないと動かない
-
+DATE=20230112  # handlerのdateと一致してないと動かない
 
 arr=()   # 空の配列
 echo "${arr[@]}"

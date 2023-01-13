@@ -6,7 +6,7 @@
 ##################################################
 # Import
 ##################################################
-import nlopt
+# import nlopt
 import os
 import argparse
 from distutils.util import strtobool  # argparseでboolを使うための方法の一つ
@@ -14,6 +14,7 @@ import itertools
 import ctypes
 import numpy as np
 import subprocess
+import sys
 
 # self-made
 import modules
@@ -142,6 +143,13 @@ valcol.__del__()
 # <
 
 
+
+
+sys.exit()
+
+
+
+
 ############################################################
 # > 最適化
 lb = [-bounds for v in range(args.latent_dim)]
@@ -190,7 +198,8 @@ with open("./tmp_log.txt", "a") as f:
             )
             print("# # パターン4", file=f)
             opt.set_max_objective(of.func_J)
-opt.set_xtol_rel(1e-4)
+# opt.set_xtol_rel(1e-4)
+opt.set_ftol_abs(1e-4)  # https://nlopt.readthedocs.io/en/latest/NLopt_Python_Reference/#stopping-criteria
 print("\nargparseで頑張ってリストを受け取る．")
 print(args.x0, type(args.x0))
 modules.INFO("x0はintに変換するので，floatはおかしくなる．")
