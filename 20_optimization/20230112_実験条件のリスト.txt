@@ -1,4 +1,3 @@
 ['distance_switch', 'weight_min_d', 'xobs_x']
-[True, 0.02, -0.3]
-[True, 0.03, -0.3]
-[True, 0.04, -0.3]
+cobyla
+bayes

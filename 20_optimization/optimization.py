@@ -6,7 +6,7 @@
 ##################################################
 # Import
 ##################################################
-# import nlopt
+import nlopt
 import os
 import argparse
 from distutils.util import strtobool  # argparseでboolを使うための方法の一つ
@@ -15,6 +15,7 @@ import ctypes
 import numpy as np
 import subprocess
 import sys
+from GPyOpt.methods import BayesianOptimization
 
 # self-made
 import modules
@@ -31,9 +32,6 @@ print("dirname:", dirname)
 # libpixel_workdirからの要請
 pixel_workdir = os.path.join(dirname, "pixel_workdir")
 os.makedirs(pixel_workdir, exist_ok=True)
-
-# test関数を使う場合は "True" としておく．本番の関数は激重のため．
-test_bool = False
 
 # ##################################################
 # argparseを使ったパラメータ設定
@@ -60,7 +58,7 @@ parser.add_argument('--dir_mu_sigma', nargs='?', default="./test/",
                     )
 parser.add_argument('--experimental_subject', nargs='?', default="dist",
                     type=str, dest='experimental_subject',
-                    help='実験対象'
+                    help='実験対象（"bayes"か"cobyla"）'
                     )
 parser.add_argument('--latent_dim', nargs='?', default=3,
                     type=int, dest='latent_dim',
@@ -90,21 +88,16 @@ parser.add_argument('--log_switch', nargs='?', default="False",
                     type=str, dest='log_switch',
                     help='詳細なログをとるかどうかの選択（str型であることに注意，strtobool()）'
                     )
+parser.add_argument('--test_bool', nargs='?', default="True",
+                    type=str, dest='test_bool',
+                    help='test関数を使う場合は "True" としておく．本番の関数は激重のため．'
+                    )
 parser.add_argument('--comment', nargs='?', default="Nothing has set.",
                     type=str, dest='comment',
                     help='実験に対するコメント'
                     )
 # <
 args = parser.parse_args()
-
-if args.experimental_subject == "table":
-    bounds = 3
-elif args.experimental_subject == "moon":
-    bounds = 3
-elif args.experimental_subject == "shape":
-    bounds = 3
-elif args.experimental_subject == "dist":
-    bounds = 3
 
 dir_model_pt = args.dir_model_pt
 dir_main = args.dir_main
@@ -143,81 +136,92 @@ valcol.__del__()
 # <
 
 
-
-
-sys.exit()
-
-
-
-
 ############################################################
 # > 最適化
-lb = [-bounds for v in range(args.latent_dim)]
-ub = [bounds for v in range(args.latent_dim)]
-opt = nlopt.opt(nlopt.LN_COBYLA, args.latent_dim)
-opt.set_lower_bounds(lb)
-opt.set_upper_bounds(ub)
-opt.set_initial_step(args.dx)                # ----- 初期ステップ
-of = tools.ObjFunc(
-    dir_model_pt, args.latent_dim, dir_results,
-    weight_min_d=args.weight_min_d, xobs_x=args.xobs_x,
-    mu_ndarray=mu_ndarray, sigma_ndarray=sigma_ndarray
-)
-# 目的関数の設定
-with open("./tmp_log.txt", "a") as f:
-    print("\n", file=f)
-with open("./tmp_log.txt", "a") as f:
-    print("\n\n#", dir_main, file=f)
-    if strtobool(args.distance_switch):
-        if test_bool:
-            print(
-                f"\n# # {test_bool = }, \
-                {strtobool(args.distance_switch) = }\n", file=f
-            )
-            print("# # パターン1", file=f)
-            opt.set_max_objective(of.func_J_dist_test)
-        else:
-            print(
-                f"\n# # {test_bool = }, \
-                {strtobool(args.distance_switch) = }\n", file=f
-            )
-            print("# # パターン2", file=f)
-            opt.set_max_objective(of.func_J_dist)
+
+# > 設定
+bounds = 3  # 設計変数の範囲は[-3, 3]
+
+# <
+
+
+def opt_cobyla(dimension):
+    print("# Dimension:", dimension)
+
+    # lb = [-bounds for v in range(args.latent_dim)]
+    # ub = [bounds for v in range(args.latent_dim)]
+    # opt = nlopt.opt(nlopt.LN_COBYLA, args.latent_dim)
+    # opt.set_lower_bounds(lb)
+    # opt.set_upper_bounds(ub)
+    lb = [-bounds for v in range(dimension)]
+    ub = [bounds for v in range(dimension)]
+    opt = nlopt.opt(nlopt.LN_COBYLA, dimension)
+    opt.set_lower_bounds(lb)
+    opt.set_upper_bounds(ub)
+
+    opt.set_initial_step(args.dx)                # ----- 初期ステップの設定
+    of = tools.ObjFunc(
+        dir_model_pt, args.latent_dim, dir_results,
+        weight_min_d=args.weight_min_d, xobs_x=args.xobs_x,
+        mu_ndarray=mu_ndarray, sigma_ndarray=sigma_ndarray
+    )
+    if strtobool(args.test_bool):  # test_boolの判定
+        opt.set_max_objective(of.func_J_test)
     else:
-        if test_bool:
-            print(
-                f"\n# # {test_bool = }, \
-                {strtobool(args.distance_switch) = }\n", file=f
-            )
-            print("# # パターン3", file=f)
-            opt.set_max_objective(of.func_J_test)
-        else:
-            print(
-                f"\n# # {test_bool = }, \
-                {strtobool(args.distance_switch) = }\n", file=f
-            )
-            print("# # パターン4", file=f)
-            opt.set_max_objective(of.func_J)
-# opt.set_xtol_rel(1e-4)
-opt.set_ftol_abs(1e-4)  # https://nlopt.readthedocs.io/en/latest/NLopt_Python_Reference/#stopping-criteria
-print("\nargparseで頑張ってリストを受け取る．")
-print(args.x0, type(args.x0))
-modules.INFO("x0はintに変換するので，floatはおかしくなる．")
-x0 = [v for v in map(int, itertools.chain.from_iterable(args.x0))]
-print(x0)
-print("リスト完成．\n")
-# 最適化実行
-try:
-    x = opt.optimize(x0)
-    of.save_log(x)
-except:
-    print("最適化失敗．")
-    with open(os.path.join(dir_main, "fail.txt"), "w") as f:
-        print("最適化失敗．．．", file=f)
-# x = opt.optimize(x0)
-minf = opt.last_optimum_value()
-of.save_log_as_csv()
-of.export_iteration()
+        opt.set_max_objective(of.func_J)
+    # https://nlopt.readthedocs.io/en/latest/NLopt_Python_Reference/#stopping-criteria
+    opt.set_ftol_abs(1e-4)
+    print(args.x0, type(args.x0))
+    modules.INFO("x0はintに変換するので，floatはおかしくなる．")
+    x0 = [v for v in map(int, itertools.chain.from_iterable(args.x0))]
+    print(x0)
+    print("リスト完成．\n")
+    x0_dimention = [0 for v in range(dimension)]
+    # 最適化実行
+    try:
+        x = opt.optimize(x0_dimention)
+        of.save_log(x0)
+    except:
+        print("最適化失敗．")
+        with open(os.path.join(dir_main, "fail.txt"), "w") as f:
+            print("最適化失敗．．．", file=f)
+    of.save_log_as_csv()
+    of.export_iteration()
+
+
+def opt_bayesian(dimension):
+    print("# Dimension:", dimension)
+    domain = [
+        {
+            'name': 'var_1',
+            'type': 'continuous',
+            'domain': (-bounds, bounds)
+        }
+    ]
+    of = tools.ObjFunc(
+        dir_model_pt, args.latent_dim, dir_results,
+        weight_min_d=args.weight_min_d, xobs_x=args.xobs_x,
+        mu_ndarray=mu_ndarray, sigma_ndarray=sigma_ndarray
+    )
+    if strtobool(args.test_bool):  # test_boolの判定
+        myBopt = BayesianOptimization(
+            f=of.func_J_bayes_test, domain=domain, maximize=True
+        )
+    else:
+        myBopt = BayesianOptimization(
+            f=of.func_J_bayes, domain=domain, maximize=True
+        )
+    myBopt.run_optimization(max_iter=100)
+    print(myBopt.x_opt)  # [0.75622342]
+    print(myBopt.fx_opt)  # -6.020180295391553
+
+
+if args.experimental_subject == "cobyla":
+    opt_cobyla(1)
+elif args.experimental_subject == "bayes":
+    print("# 単に目的関数値に-1をかけている．")
+    opt_bayesian(1)
+
 # <
 ############################################################
 

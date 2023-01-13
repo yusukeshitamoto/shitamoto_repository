@@ -1,6 +1,17 @@
-# tmp.txtを順に実行するコード．
-# 先にextract_model.pyを実行しておく必要がある．
-PYTHON=/usr/bin/python3
+# 変数PYTHONの設定
+# $(uname)には"Darwin"か"Linux"あたりが入っている．
+if [ "$(uname)" == 'Darwin' ]
+then
+    OS='Mac'
+    PYTHON=/usr/local/bin/python3
+elif [ "$(uname)" == 'Linux' ]
+then
+    OS='Linux'
+    PYTHON=/usr/bin/python3
+else
+    echo "Your platform ($(uname -a)) is not supported."
+    exit 1
+fi
 SCRIPT=optimization.py
 
 # いじるところ：

@@ -14,10 +14,9 @@ comment = "With_distance"
 # 通し番号と実験条件のリスト
 log_file = "_実験条件のリスト.txt"
 exp_list = [
-    # [sequencial_num, distance_switch, weight_min_d, xobs_x]
-    [True, 0.02, -0.30],
-    [True, 0.03, -0.30],
-    [True, 0.04, -0.30]
+    # [experimental_subject]
+    "cobyla",
+    "bayes"
 ]
 
 with open(os.path.join(dirname, date + log_file), "w") as f:
@@ -34,25 +33,26 @@ filename = name + ".txt"
 
 with open(os.path.join(dirname, filename), "w") as f:
     model = "model"
-    for i, exp in enumerate(exp_list):
+    for i, experimental_subject in enumerate(exp_list):
         # boolに関しては distutils.util の strtobool(args.distance_switch) を使うこと．
-        distance_switch, weight_min_d, xobs_x = exp
         dir_main = os.path.join(
-            dirname, date + "_" + str(i+1).zfill(2)
+            os.path.join(
+                dirname, date
+            ), experimental_subject
         )
         model_id = model
         dir_model_pt = os.path.join(dir_model, model + ".pt")
         dir_mu_sigma = dir_model
-        experimental_subject = "dist"
         latent_dim = 8
-        # distance_switch = distance_switch
+        distance_switch = False
         x0 = ""
         for i in range(latent_dim):
             x0 += "0 "
-        # weight_min_d = weight_min_d
+        weight_min_d = 0
         dx = "1.5"
-        # xobs_x = xobs_x
+        xobs_x = 0.25
         log_switch = "False"
+        test_bool = True
         print(
                 f"""\
 --dir_main {dir_main} \
@@ -67,6 +67,7 @@ with open(os.path.join(dirname, filename), "w") as f:
 --dx {dx} \
 --xobs_x {xobs_x} \
 --log_switch {log_switch} \
+--test_bool {test_bool} \
 --comment {comment}\
 """,
                 file=f

@@ -75,6 +75,36 @@ class ObjFunc():
         self.J_log.append(J)
         return J
 
+    def func_J_test(self, x, _):
+        img = self.setup(x)
+        ##############################################
+        # 目的関数の値を計算するパート
+        # # 音圧計算パート（testバージョン）
+        J = self.calc_J_from_img_test(img, x)
+        ##############################################
+        self.J_log.append(J)
+        return J
+
+    def func_J_bayes(self, x):
+        img = self.setup(x)
+        ##############################################
+        # 目的関数の値を計算するパート
+        # # 音圧計算パート
+        J = self.calc_J_from_img(img)
+        ##############################################
+        self.J_log.append(J)
+        return J
+
+    def func_J_bayes_test(self, x):
+        img = self.setup(x)
+        ##############################################
+        # 目的関数の値を計算するパート
+        # # 音圧計算パート（testバージョン）
+        J = self.calc_J_from_img_test(img, x)
+        ##############################################
+        self.J_log.append(J)
+        return J
+
     def func_J_dist(self, x, _):
         img = self.setup(x)
         ##############################################
@@ -93,16 +123,6 @@ class ObjFunc():
         ##############################################
         self.J_log.append([J, weight_min_d * min_d, J_total])
         return J_total
-
-    def func_J_test(self, x, _):
-        img = self.setup(x)
-        ##############################################
-        # 目的関数の値を計算するパート
-        # # 音圧計算パート（testバージョン）
-        J = self.calc_J_from_img_test(img, x)
-        ##############################################
-        self.J_log.append(J)
-        return J
 
     def func_J_dist_test(self, x, _):
         img = self.setup(x)
