@@ -140,7 +140,6 @@ valcol.__del__()
 
 # > 設定
 bounds = 3  # 設計変数の範囲は[-3, 3]
-
 # <
 
 
@@ -203,7 +202,8 @@ def opt_bayesian(dimension):
     of = tools.ObjFunc(
         dir_model_pt, args.latent_dim, dir_results,
         weight_min_d=args.weight_min_d, xobs_x=args.xobs_x,
-        mu_ndarray=mu_ndarray, sigma_ndarray=sigma_ndarray
+        mu_ndarray=mu_ndarray, sigma_ndarray=sigma_ndarray,
+        dimension=dimension
     )
     if strtobool(args.test_bool):  # test_boolの判定
         myBopt = BayesianOptimization(
@@ -213,16 +213,26 @@ def opt_bayesian(dimension):
         myBopt = BayesianOptimization(
             f=of.func_J_bayes, domain=domain, maximize=True
         )
-    myBopt.run_optimization(max_iter=100)
+    x0 = [0 for v in range(args.latent_dim)]
+    try:
+        myBopt.run_optimization(max_iter=30)
+        x0[0] = myBopt.x_opt[0]
+        of.save_log(x0)
+    except:
+        print("最適化失敗．")
+        with open(os.path.join(dir_main, "fail.txt"), "w") as f:
+            print("最適化失敗．．．", file=f)
+    of.save_log_as_csv()
+    of.export_iteration()
     print(myBopt.x_opt)  # [0.75622342]
     print(myBopt.fx_opt)  # -6.020180295391553
+    return x0
 
 
 if args.experimental_subject == "cobyla":
     x = opt_cobyla(1)
 elif args.experimental_subject == "bayes":
-    print("# 単に目的関数値に-1をかけている．")
-    opt_bayesian(1)
+    x = opt_bayesian(1)
 
 # <
 ############################################################
@@ -269,8 +279,8 @@ def prepare_src_of_incal(x_0, x_opt):
     )
 
 
-x0 = [0 for v in range(args.latent_dim)]
-prepare_src_of_incal(x0, x)
+# x0 = [0 for v in range(args.latent_dim)]
+# prepare_src_of_incal(x0, x)
 
 
 finish = mytimer.TACK()

@@ -76,6 +76,27 @@ class ObjFunc():
         self.save_shape(img, str(self.iteration).zfill(3))
         return img
 
+    def setup_bayes(self, x):
+        """iterationのカウントアップと，xからの画像生成
+        """
+        self.iteration += 1
+        print("# # # Iteration =", self.iteration)
+        self.z_log.append(list(x))
+        print(x, type(x))
+        # ここで，もしself.dimensionがNoneでなかった場合の処理を入れる
+        if self.dimension is not None:
+            x_tmp = [0 for v in range(self.latent_dim)]
+            for i, x_i in enumerate(x[0]):   # <--------------- x[0]!!
+                x_tmp[i] = x_i
+            x = x_tmp
+        input = torch.Tensor(x)
+        img = self.vae.decoder(input)
+        img = img.detach().numpy().reshape(128, 128)*-1
+        img = (img > 0.) * 1.
+        img = process_data.filter(img)/255
+        self.save_shape(img, str(self.iteration).zfill(3))
+        return img
+
     def func_J(self, x, _):
         img = self.setup(x)
         ##############################################
@@ -97,7 +118,7 @@ class ObjFunc():
         return J
 
     def func_J_bayes(self, x):
-        img = self.setup(x)
+        img = self.setup_bayes(x)
         ##############################################
         # 目的関数の値を計算するパート
         # # 音圧計算パート
@@ -107,7 +128,7 @@ class ObjFunc():
         return J
 
     def func_J_bayes_test(self, x):
-        img = self.setup(x)
+        img = self.setup_bayes(x)
         ##############################################
         # 目的関数の値を計算するパート
         # # 音圧計算パート（testバージョン）
@@ -168,7 +189,7 @@ class ObjFunc():
     def calc_J_from_img_test(self, img, x):
         img = img.astype(int)
         np.savetxt("./moon_optimized.txt", img, delimiter="", fmt='%d')
-        # testでは，漸近的に1に近づく関数を設定しておく．
+        # testでは，漸近的に10に近づく関数を設定しておく．
         J = 10 - np.sum(x * x)
         with open(
                     "./pixel_workdir/CHECK_TEST"
