@@ -14,7 +14,6 @@ import itertools
 import ctypes
 import numpy as np
 import subprocess
-import sys
 from GPyOpt.methods import BayesianOptimization
 
 # self-made
@@ -163,7 +162,8 @@ def opt_cobyla(dimension):
     of = tools.ObjFunc(
         dir_model_pt, args.latent_dim, dir_results,
         weight_min_d=args.weight_min_d, xobs_x=args.xobs_x,
-        mu_ndarray=mu_ndarray, sigma_ndarray=sigma_ndarray
+        mu_ndarray=mu_ndarray, sigma_ndarray=sigma_ndarray,
+        dimension=dimension
     )
     if strtobool(args.test_bool):  # test_boolの判定
         opt.set_max_objective(of.func_J_test)
@@ -180,6 +180,7 @@ def opt_cobyla(dimension):
     # 最適化実行
     try:
         x = opt.optimize(x0_dimention)
+        x0[0] = x[0]
         of.save_log(x0)
     except:
         print("最適化失敗．")
@@ -187,6 +188,7 @@ def opt_cobyla(dimension):
             print("最適化失敗．．．", file=f)
     of.save_log_as_csv()
     of.export_iteration()
+    return x0
 
 
 def opt_bayesian(dimension):
@@ -217,7 +219,7 @@ def opt_bayesian(dimension):
 
 
 if args.experimental_subject == "cobyla":
-    opt_cobyla(1)
+    x = opt_cobyla(1)
 elif args.experimental_subject == "bayes":
     print("# 単に目的関数値に-1をかけている．")
     opt_bayesian(1)
@@ -267,6 +269,7 @@ def prepare_src_of_incal(x_0, x_opt):
     )
 
 
+x0 = [0 for v in range(args.latent_dim)]
 prepare_src_of_incal(x0, x)
 
 

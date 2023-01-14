@@ -1,0 +1,16 @@
+2023-01-14 12:35:42.811217
+変数の記録開始．
+
+
+# モデル固有のディレクトリ．自由に設定可能．
+	dir_main = /Users/hitoki/Desktop/02_shitamoto/shitamoto_repository/20_optimization/check_test/
+# モデルパラメータファイルのフルパス．torch.load(args.dir_pt)のように直接読み込みに使う．
+	dir_pt = /Users/hitoki/Desktop/02_shitamoto/shitamoto_repository/20_optimization/model_parameters/model.pt
+# 潜在変数の次元
+	latent_dim = 8
+# モデルの出力を確認する際の潜在変数の深さ（2が最小）
+	check_depth = 3
+# check_gallery()関数を実行するかどうかを決める
+	check_gallery_switch = true
+# check_ms()関数を実行するかどうかを決める
+	check_ms_switch = false

@@ -18,9 +18,11 @@ class ObjFunc():
     def __init__(
             self, dir_model_pt, latent_dim, dir_results,
             weight_min_d=0, xobs_x=-0.20,
-            mu_ndarray=None, sigma_ndarray=None
+            mu_ndarray=None, sigma_ndarray=None,
+            dimension=None
             ):
         self.iteration = 0
+        self.latent_dim = latent_dim
         self.J_log = []
         self.z_log = []
         self.dir_results = dir_results
@@ -51,12 +53,21 @@ class ObjFunc():
         self.mu_ndarray = mu_ndarray
         self.sigma_ndarray = sigma_ndarray
 
+        # shitamoto:
+        self.dimension = dimension
+
     def setup(self, x):
         """iterationのカウントアップと，xからの画像生成
         """
         self.iteration += 1
         print("# # # Iteration =", self.iteration)
         self.z_log.append(list(x))
+        # ここで，もしself.dimensionがNoneでなかった場合の処理を入れる
+        if self.dimension is not None:
+            x_tmp = [0 for v in range(self.latent_dim)]
+            for i, x_i in enumerate(x):
+                x_tmp[i] = x_i
+            x = x_tmp
         input = torch.Tensor(x)
         img = self.vae.decoder(input)
         img = img.detach().numpy().reshape(128, 128)*-1

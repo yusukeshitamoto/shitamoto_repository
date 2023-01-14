@@ -16,7 +16,7 @@ log_file = "_実験条件のリスト.txt"
 exp_list = [
     # [experimental_subject]
     "cobyla",
-    "bayes"
+    # "bayes"
 ]
 
 with open(os.path.join(dirname, date + log_file), "w") as f:
