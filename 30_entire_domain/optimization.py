@@ -14,7 +14,7 @@ import itertools
 import ctypes
 import numpy as np
 import subprocess
-from GPyOpt.methods import BayesianOptimization
+# from GPyOpt.methods import BayesianOptimization
 
 # self-made
 import modules
@@ -151,10 +151,6 @@ of = tools.ObjFunc(
     dimension=dimension
 )
 
-# test.inファイルの修正
-infile = b"test2.in"
-of.c_infile = ctypes.c_char_p(infile)
-
 
 def z2J(z):
     global of
@@ -168,6 +164,9 @@ def z2J(z):
 z_list = np.arange(-bounds, bounds+0.0001, sampling)
 for z in z_list:
     J = z2J(z)
+
+of.save_log_as_csv()
+of.export_iteration()
 
 # <
 ############################################################

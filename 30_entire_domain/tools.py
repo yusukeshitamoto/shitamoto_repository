@@ -27,7 +27,7 @@ class ObjFunc():
         self.z_log = []
         self.dir_results = dir_results
         # > 共有ライブラリの準備
-        LIB_PATH = './libpixel_GCC631.so'
+        LIB_PATH = './libpixel_GCC631_hitoki.so'
         self.lib = ctypes.cdll.LoadLibrary(LIB_PATH)
         # 戻り値の型を指定
         self.lib.pixel_objfunc.restype = ctypes.c_double
@@ -61,12 +61,12 @@ class ObjFunc():
         """
         self.iteration += 1
         print("# # # Iteration =", self.iteration)
-        self.z_log.append(list(x))
+        # self.z_log.append(list(x))
+        self.z_log.append(x)
         # ここで，もしself.dimensionがNoneでなかった場合の処理を入れる
         if self.dimension is not None:
             x_tmp = [0 for v in range(self.latent_dim)]
-            for i, x_i in enumerate(x):
-                x_tmp[i] = x_i
+            x_tmp[0] = x
             x = x_tmp
         input = torch.Tensor(x)
         img = self.vae.decoder(input)
