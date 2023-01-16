@@ -7,7 +7,7 @@ ar1=(
     "sample"
 )  # モデルの名前のリスト
 # ファイル処理をするかどうか
-PROCESS=false
+PROCESS=true
 # アーカイブを作成するかどうか
 MAKE_ARCHIVE=true
 # LOOP=`seq -f '%02g' 3`  # ループの設定
@@ -54,7 +54,7 @@ then
 
                 # incal用のsrcフォルダ作成
                 mkdir ${SRC}
-                for i in `seq -f '%03g' 60`
+                for i in `seq -f '%03g' 61`
                 do
                     echo ${IN}${i}
                     cp -v ${PIC}/${IN}${i}.txt ${SRC}/${i}.txt
@@ -77,7 +77,7 @@ then
                 then
                     echo gzipファイルの処理．．．
                     tar -zcf ${DATE}_${model}.tar.gz ${PIC}
-                    # rm -r ${PIC}
+                    rm -r ${PIC}
                     # gzipファイル専用フォルダへの移動
                     mv ${DATE}_${model}.tar.gz ${TOP}/${GZS}
                 fi

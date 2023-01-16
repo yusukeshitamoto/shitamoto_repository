@@ -33,3 +33,5 @@ for val in "${arr[@]}"; do
 done
 
 cp ./計算の条件.txt ./${DATE}_計算の条件.txt
+
+

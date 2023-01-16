@@ -151,6 +151,10 @@ of = tools.ObjFunc(
     dimension=dimension
 )
 
+# test.inファイルの修正
+infile = b"test2.in"
+of.c_infile = ctypes.c_char_p(infile)
+
 
 def z2J(z):
     global of
