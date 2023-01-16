@@ -8,7 +8,7 @@ Start debug.
 
 # # pixel.c, line = 124, function: pixel_objfunc
 観測点の座標：
-	x = 0.250000, y = 1.000000
+	x = -0.250000, y = 1.000000
 
 # # pixel.c, line = 362, function: pixel_objfunc
 入力波：
