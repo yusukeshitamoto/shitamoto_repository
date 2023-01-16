@@ -50,7 +50,7 @@ with open(os.path.join(dirname, filename), "w") as f:
             x0 += "0 "
         weight_min_d = 0
         dx = "1.5"
-        xobs_x = 0.25
+        xobs_x = -0.25
         log_switch = "False"
         test_bool = False
         print(
