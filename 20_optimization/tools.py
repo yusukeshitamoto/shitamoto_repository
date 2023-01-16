@@ -27,7 +27,8 @@ class ObjFunc():
         self.z_log = []
         self.dir_results = dir_results
         # > 共有ライブラリの準備
-        LIB_PATH = './libpixel_GCC631.so'
+        # LIB_PATH = './libpixel_GCC631.so'
+        LIB_PATH = './libpixel_GCC631_hitoki.so'
         self.lib = ctypes.cdll.LoadLibrary(LIB_PATH)
         # 戻り値の型を指定
         self.lib.pixel_objfunc.restype = ctypes.c_double

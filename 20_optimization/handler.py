@@ -6,7 +6,7 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 
 # # いじるところ：
 # 日付
-date = "20230114"
+date = "20230117"
 # モデルパラメータが入ったディレクトリ
 dir_model = os.path.join(dirname, "model_parameters")
 comment = "With_distance"
@@ -15,8 +15,7 @@ comment = "With_distance"
 log_file = "_実験条件のリスト.txt"
 exp_list = [
     # [experimental_subject]
-    "cobyla",
-    "bayes"
+    "cobyla"
 ]
 
 with open(os.path.join(dirname, date + log_file), "w") as f:
