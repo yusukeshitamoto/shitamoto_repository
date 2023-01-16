@@ -107,8 +107,9 @@ def optimization(max_iter):
 
 
 m = 10
+n = 200
 opt_list = []
-for i in tqdm(range(10)):
+for i in tqdm(range(n)):
     max_iter = m * (i + 1)
     f_opt, x_opt, total_iter = optimization(max_iter)
     x_opt = x_opt[0]
