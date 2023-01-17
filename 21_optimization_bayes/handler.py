@@ -6,7 +6,7 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 
 # # いじるところ：
 # 日付
-date = "20230118"
+date = "20230118_bayes"
 # モデルパラメータが入ったディレクトリ
 dir_model = os.path.join(dirname, "model_parameters")
 comment = "With_distance"
@@ -15,7 +15,7 @@ comment = "With_distance"
 log_file = "_実験条件のリスト.txt"
 exp_list = [
     # [experimental_subject]
-    "cobyla"
+    "bayes"
 ]
 
 with open(os.path.join(dirname, date + log_file), "w") as f:
@@ -51,7 +51,7 @@ with open(os.path.join(dirname, filename), "w") as f:
         dx = "1.5"
         xobs_x = -0.25
         log_switch = "False"
-        test_bool = False
+        test_bool = True
         print(
                 f"""\
 --dir_main {dir_main} \
