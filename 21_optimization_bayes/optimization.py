@@ -218,7 +218,7 @@ def opt_bayesian(dimension):
         )
     x0 = [0 for v in range(args.latent_dim)]
     try:
-        myBopt.run_optimization(max_iter=30)
+        myBopt.run_optimization(max_iter=200)
         x0[0] = myBopt.x_opt[0]
         of.save_log(x0)
     except:

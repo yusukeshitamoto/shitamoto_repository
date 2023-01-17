@@ -44,8 +44,8 @@ obj_filename = filename
 inverse_jsp = True
 header = None
 index_col = None
-xlabel = "Max iteration"
-ylabel = "Optimized value"
+xlabel = "$z=1$"
+ylabel = "Objective function"
 
 
 # > Check the existence of the file:
@@ -120,11 +120,11 @@ ndarray_for_yticks = np.arange(
 # <
 
 # > x axis
-step_xticks = 10
-ndarray_for_xticks = np.arange(0, len(x)+1, step=step_xticks)[1:]
-ndarray_for_xticks = np.insert(ndarray_for_xticks, 0, 1)  # 0番目に1を挿入
-# ndarray_for_xticks = np.arange(5, 241, step_xticks)
-x_lim = [1, 61]
+step_xticks = 0.5
+# ndarray_for_xticks = np.arange(0, len(x)+1, step=step_xticks)[1:]
+# ndarray_for_xticks = np.insert(ndarray_for_xticks, 0, 1)  # 0番目に1を挿入
+ndarray_for_xticks = np.arange(-3, 3 + step_xticks, step_xticks)
+x_lim = [-3, 3]
 # <
 
 
