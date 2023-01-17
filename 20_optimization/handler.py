@@ -9,7 +9,7 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 date = "20230118"
 # モデルパラメータが入ったディレクトリ
 dir_model = os.path.join(dirname, "model_parameters")
-comment = "With_distance"
+comment = "Use_ftol_rel"
 
 # 通し番号と実験条件のリスト
 log_file = "_実験条件のリスト.txt"

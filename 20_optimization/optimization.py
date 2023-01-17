@@ -169,7 +169,7 @@ def opt_cobyla(dimension):
     else:
         opt.set_max_objective(of.func_J)
     # https://nlopt.readthedocs.io/en/latest/NLopt_Python_Reference/#stopping-criteria
-    opt.set_ftol_abs(1e-4)
+    opt.set_ftol_rel(1e-4)
     print(args.x0, type(args.x0))
     modules.INFO("x0はintに変換するので，floatはおかしくなる．")
     x0 = [v for v in map(int, itertools.chain.from_iterable(args.x0))]

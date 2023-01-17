@@ -39,7 +39,8 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 plotting = [1]  # or "all"
 obj_path = dirname
 src_path = dirname
-filename = "test_change_max_iter_48"
+num = 57
+filename = "test_change_max_iter_57"
 obj_filename = filename
 inverse_jsp = True
 header = 0
@@ -123,8 +124,8 @@ ndarray_for_yticks = np.arange(
 step_xticks = 20
 # ndarray_for_xticks = np.arange(0, len(x)+1, step=step_xticks)[1:]
 # ndarray_for_xticks = np.insert(ndarray_for_xticks, 0, 1)  # 0番目に1を挿入
-ndarray_for_xticks = np.arange(5, 241, step_xticks)
-x_lim = [5, 240]
+ndarray_for_xticks = np.arange(5, 5 * num + 1, step_xticks)
+x_lim = [5, 5 * num]
 # <
 
 
