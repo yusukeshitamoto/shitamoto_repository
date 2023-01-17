@@ -106,6 +106,8 @@ class ObjFunc():
         J = self.calc_J_from_img(img)
         ##############################################
         self.J_log.append(J)
+        print("# func_Jの内部でsave_log_as_csv()実行．")
+        self.save_log_as_csv()
         return J
 
     def func_J_test(self, x, _):
@@ -116,6 +118,8 @@ class ObjFunc():
         J = self.calc_J_from_img_test(img, x)
         ##############################################
         self.J_log.append(J)
+        print("# func_Jの内部でsave_log_as_csv()実行．")
+        self.save_log_as_csv()
         return J
 
     def func_J_bayes(self, x):

@@ -36,10 +36,10 @@ def my_round(a, unit, min_=False):
 
 
 dirname = os.path.dirname(os.path.abspath(__file__))
-plotting = [2]  # or "all"
+plotting = [1]  # or "all"
 obj_path = dirname
 src_path = dirname
-filename = "test_change_max_iter"
+filename = "test_change_max_iter_48"
 obj_filename = filename
 inverse_jsp = True
 header = 0
@@ -71,6 +71,11 @@ print("# Font:", _font, "(Linuxでは無効になる;_;)")
 plt.rcParams["mathtext.fontset"] = 'stix'         # Before fig, ax =　...
 # <
 
+# > Figure size settings:
+# FIG_SIZE = (8, 5)
+FIG_SIZE = (10, 5)
+# <
+
 # df to numpy arrays
 df = pd.read_csv(
     os.path.join(src_path, csv(filename)), header=header,
@@ -90,20 +95,21 @@ if not (plotting == "all"):
     y = - y[plotting]
     print(f"{y.shape = }, {len(y) = }")
 
+# > fig, axインスタンス
+fig, ax = plt.subplots(figsize=FIG_SIZE)
+ax.tick_params(axis='both', labelsize=FONT_TICKLABELS)
+ax.set_xlabel(xlabel, fontsize=FONT_LABELS)
+ax.set_ylabel(ylabel, fontsize=FONT_LABELS)
+# <
+
+# > y axis
 # min, maxチェック:
 y_min = np.amin(y)
 y_max = np.amax(y)
-
-# Settings:
-# FIG_SIZE = (8, 5)
-FIG_SIZE = (10, 5)
-step_xticks = 10
 # step_yticks = 1.0
 step_yticks = 0.02
 y_min_rounded = my_round(y_min, step_yticks, min_=True)
 y_max_rounded = my_round(y_max, step_yticks)
-if ((y_max_rounded - y_min_rounded)/step_yticks > 10):
-    step_yticks = 1.0
 y_lim = [
     y_min_rounded,
     y_max_rounded
@@ -111,58 +117,30 @@ y_lim = [
 ndarray_for_yticks = np.arange(
     y_lim[0], y_lim[1] + step_yticks, step=step_yticks
 )
-
-# > fig, axインスタンス
-fig, ax = plt.subplots(figsize=FIG_SIZE)
-ax.tick_params(axis='both', labelsize=FONT_TICKLABELS)
-ax.set_xlabel(xlabel, fontsize=FONT_LABELS)
-ax.set_ylabel(ylabel, fontsize=FONT_LABELS)
-ax.set_xlim([10, 100])
-ax.set_ylim(y_lim)
 # <
+
+# > x axis
+step_xticks = 20
+# ndarray_for_xticks = np.arange(0, len(x)+1, step=step_xticks)[1:]
+# ndarray_for_xticks = np.insert(ndarray_for_xticks, 0, 1)  # 0番目に1を挿入
+ndarray_for_xticks = np.arange(5, 241, step_xticks)
+x_lim = [5, 240]
+# <
+
 
 # プロット:
 for i in range(len(y)):
     ax.plot(x, y[i], marker='o', markersize=3, linewidth=1)
-
-# # Legend
-# ax.legend(
-#     ['Sound Pressure'], fontsize=FONT_LEGENDS
-# )
-
-# > y_ticks
+# sets
+ax.set_xlim(x_lim)
+ax.set_ylim(y_lim)
 ax.set_yticks(ndarray_for_yticks)
-# ax.set_yticks(np.arange(0, 3.6, step=0.1), minor=True)
-# <
-
-# > x_ticks
-# ndarray_for_xticks = np.arange(0, len(x)+1, step=step_xticks)[1:]
-# ndarray_for_xticks = np.insert(ndarray_for_xticks, 0, 1)  # 0番目に1を挿入
-ndarray_for_xticks = np.arange(10, 101, 10)
-print(f"{ndarray_for_xticks = }")
+print(f"{ndarray_for_yticks = }")
 ax.set_xticks(ndarray_for_xticks)
-# <
-
-# > gridの設定：
+print(f"{ndarray_for_xticks = }")
 plt.grid(True)
-# ax.grid(which="major", alpha=0.5, axis='y')
-# ax.grid(which="minor", alpha=0.1, axis='y')
-# ax.grid(which="major", alpha=10, axis='x')
-# ax.grid(which="minor", alpha=2, axis='x')
-# ax.grid(which="minor", alpha=0.2, axis='y')
-# ax.grid(which="minor", alpha=0.2, axis='x')
-# <
-
-# 手動の余白調整：
-# plt.subplots_adjust(left=0.10, right=0.95, bottom=0.2, top=0.95)
-
 # Save image:
-# fig.savefig(os.path.join(obj_path, png(obj_filename)))
-# subplots_adjust()を使った方法から，bbox_inches, pad_inchesのコンビネーションに変更
 fig.savefig(
     os.path.join(obj_path, png(obj_filename)),
     bbox_inches="tight", pad_inches=0.2
 )
-
-
-

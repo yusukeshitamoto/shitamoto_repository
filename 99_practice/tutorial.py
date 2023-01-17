@@ -106,16 +106,18 @@ def optimization(max_iter):
     return myBopt_1d.fx_opt, myBopt_1d.x_opt, total_iteration
 
 
-m = 10
-n = 200
+m = 5
+n = 100
 opt_list = []
+col = ["max_iter", "f_opt", "x_opt", "total_iter"]
 for i in tqdm(range(n)):
     max_iter = m * (i + 1)
     f_opt, x_opt, total_iter = optimization(max_iter)
     x_opt = x_opt[0]
     opt_list.append([max_iter, f_opt, x_opt, total_iter])
     mc.reset_iteration()
+    df = pd.DataFrame(opt_list, columns=col)
+    df.to_csv(os.path.join(dirname, "test_change_max_iter.csv"))
 print(opt_list)
-col = ["max_iter", "f_opt", "x_opt", "total_iter"]
 df = pd.DataFrame(opt_list, columns=col)
 df.to_csv(os.path.join(dirname, "test_change_max_iter.csv"))

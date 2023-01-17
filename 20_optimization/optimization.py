@@ -177,14 +177,17 @@ def opt_cobyla(dimension):
     print("リスト完成．\n")
     x0_dimention = [0 for v in range(dimension)]
     # 最適化実行
-    try:
-        x = opt.optimize(x0_dimention)
-        x0[0] = x[0]
-        of.save_log(x0)
-    except:
-        print("最適化失敗．")
-        with open(os.path.join(dir_main, "fail.txt"), "w") as f:
-            print("最適化失敗．．．", file=f)
+    # try:
+    #     x = opt.optimize(x0_dimention)
+    #     x0[0] = x[0]
+    #     of.save_log(x0)
+    # except:
+    #     print("最適化失敗．")
+    #     with open(os.path.join(dir_main, "fail.txt"), "w") as f:
+    #         print("最適化失敗．．．", file=f)
+    x = opt.optimize(x0_dimention)
+    x0[0] = x[0]
+    of.save_log(x0)
     of.save_log_as_csv()
     of.export_iteration()
     return x0

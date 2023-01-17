@@ -6,7 +6,7 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 
 # # いじるところ：
 # 日付
-date = "20230117"
+date = "20230118"
 # モデルパラメータが入ったディレクトリ
 dir_model = os.path.join(dirname, "model_parameters")
 comment = "With_distance"
