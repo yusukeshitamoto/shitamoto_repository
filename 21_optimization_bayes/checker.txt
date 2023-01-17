@@ -1,0 +1,1 @@
+/usr/local/bin/python3 checker.py --dir_main /Users/hitoki/Desktop/02_shitamoto/shitamoto_repository/20_optimization/check_test/ --dir_pt /Users/hitoki/Desktop/02_shitamoto/shitamoto_repository/20_optimization/model_parameters/model.pt --latent_dim 8 --check_depth 3 --check_gallery_switch true --check_ms_switch false
