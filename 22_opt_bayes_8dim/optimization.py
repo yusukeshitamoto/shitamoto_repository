@@ -34,7 +34,7 @@ os.makedirs(pixel_workdir, exist_ok=True)
 
 # その他パラメータ
 dimension = 8
-max_iter = 2
+max_iter = 300
 
 # ##################################################
 # argparseを使ったパラメータ設定

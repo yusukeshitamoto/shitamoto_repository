@@ -51,7 +51,7 @@ with open(os.path.join(dirname, filename), "w") as f:
         dx = "1.5"
         xobs_x = -0.30
         log_switch = "False"
-        test_bool = True
+        test_bool = False
         print(
                 f"""\
 --dir_main {dir_main} \
