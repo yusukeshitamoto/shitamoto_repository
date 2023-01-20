@@ -15,7 +15,7 @@ fi
 SCRIPT=optimization.py
 
 # いじるところ：
-DATE=20230118_bayes  # handlerのdateと一致してないと動かない
+DATE=20230119_bayes  # handlerのdateと一致してないと動かない
 
 arr=()   # 空の配列
 echo "${arr[@]}"

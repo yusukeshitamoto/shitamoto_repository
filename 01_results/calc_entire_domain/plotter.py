@@ -44,7 +44,7 @@ obj_filename = filename
 inverse_jsp = True
 header = None
 index_col = None
-xlabel = "$z=1$"
+xlabel = "$z_1$"
 ylabel = "Objective function"
 
 
@@ -84,7 +84,8 @@ df = pd.read_csv(
 print(df.head())
 y = df.to_numpy()
 print(f"{y.shape = }, {len(y) = }")
-x = np.arange(1, len(y) + 1, 1)
+# x = np.arange(1, len(y) + 1, 1)
+x = np.arange(-3, 3.01, 0.1)
 y = y.T
 # x = y[0]
 print(f"{y.shape = }, {len(y) = }")

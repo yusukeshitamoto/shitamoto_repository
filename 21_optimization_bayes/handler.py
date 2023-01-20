@@ -6,10 +6,10 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 
 # # いじるところ：
 # 日付
-date = "20230118_bayes"
+date = "20230119_bayes"
 # モデルパラメータが入ったディレクトリ
 dir_model = os.path.join(dirname, "model_parameters")
-comment = "With_distance"
+comment = "With_distance_2"
 
 # 通し番号と実験条件のリスト
 log_file = "_実験条件のリスト.txt"
