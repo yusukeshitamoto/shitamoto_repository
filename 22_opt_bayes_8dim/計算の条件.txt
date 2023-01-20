@@ -1,0 +1,27 @@
+
+# # pixel.c, line = 91, function: pixel_objfunc
+Start debug.
+
+# # pixel.c, line = 93, function: pixel_objfunc
+解析領域のオーダー：
+	lx = 2.000000, ly = 2.000000
+
+# # pixel.c, line = 124, function: pixel_objfunc
+観測点の座標：
+	x = -0.300000, y = 1.000000
+
+# # pixel.c, line = 362, function: pixel_objfunc
+入力波：
+	ninc = 100
+
+# # incal.c, line = 118, function: isohelm2d_incal_input
+内点計算用のグリッド：
+	nx = 4, ny = 4
+
+# # incal.c, line = 121, function: isohelm2d_incal_input
+内点計算の領域（x）：
+	nx = -3.000000, ny = 3.000000
+
+# # incal.c, line = 124, function: isohelm2d_incal_input
+内点計算の領域（y）：
+	nx = -2.000000, ny = 4.000000
