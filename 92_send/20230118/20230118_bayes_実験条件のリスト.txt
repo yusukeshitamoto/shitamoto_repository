@@ -1,0 +1,2 @@
+['distance_switch', 'weight_min_d', 'xobs_x']
+bayes
