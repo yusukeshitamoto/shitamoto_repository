@@ -22,8 +22,8 @@ index_col = None
 # index_col = 0
 
 # ラベル
-xlabel = "$Step$"
-ylabel = "$Objective function$"
+xlabel = "Step"
+ylabel = "Objective function"
 
 # ticks
 y_ticks = "auto"
