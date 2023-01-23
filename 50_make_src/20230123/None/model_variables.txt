@@ -1,0 +1,34 @@
+2023-01-23 11:17:51.011646
+変数の記録開始．
+
+
+Post_Process
+
+# モデルに関する結果が入るディレクトリ
+	dir_main = /home/hitoki/Desktop/shitamoto_repository/50_make_src/20230123/None
+# モデル固有の文字列
+	model_id = model
+# モデルパラメータファイルのフルパス
+	dir_model_pt = /home/hitoki/Desktop/shitamoto_repository/50_make_src/model_parameters/model.pt
+# muとsigmaのデータがあるディレクトリ
+	dir_mu_sigma = /home/hitoki/Desktop/shitamoto_repository/50_make_src/model_parameters
+# 実験対象（"bayes"か"cobyla"）
+	experimental_subject = None
+# 潜在変数の次元
+	latent_dim = 8
+# 距離を目的関数に加えるか（str型であることに注意，strtobool()）
+	distance_switch = False
+# 最適化の初期値．
+	x0 = [['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0']]
+# 最小のdに掛け合わせる重み
+	weight_min_d = 0.0
+# 初期ステップ
+	dx = 1.5
+# 観測点のx座標
+	xobs_x = -0.25
+# 詳細なログをとるかどうかの選択（str型であることに注意，strtobool()）
+	log_switch = False
+# test関数を使う場合は "True" としておく．本番の関数は激重のため．
+	test_bool = False
+# 実験に対するコメント
+	comment = Post_Process
