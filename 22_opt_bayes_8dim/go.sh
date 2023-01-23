@@ -8,7 +8,7 @@ SCRIPT=optimization.py
 echo ${SCRIPT}
 
 # いじるところ：
-DATE=20230120  # handlerのdateと一致してないと動かない
+DATE=20230124  # handlerのdateと一致してないと動かない
 
 
 arr=()   # 空の配列

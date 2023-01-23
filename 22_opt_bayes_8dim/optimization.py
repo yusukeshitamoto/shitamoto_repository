@@ -19,7 +19,7 @@ from GPyOpt.methods import BayesianOptimization
 # self-made
 import modules
 # 目的関数
-import tools
+import tools_dist_8dim as tools
 
 
 mytimer = modules.Mytimer()
@@ -34,7 +34,7 @@ os.makedirs(pixel_workdir, exist_ok=True)
 
 # その他パラメータ
 dimension = 8
-max_iter = 300
+max_iter = 200
 
 # ##################################################
 # argparseを使ったパラメータ設定
@@ -207,11 +207,11 @@ def opt_bayesian(dimension):
     )
     if strtobool(args.test_bool):  # test_boolの判定
         myBopt = BayesianOptimization(
-            f=of.func_J_bayes_test, domain=domain, maximize=True
+            f=of.func_J_bayes_dist_test, domain=domain, maximize=True
         )
     else:
         myBopt = BayesianOptimization(
-            f=of.func_J_bayes, domain=domain, maximize=True
+            f=of.func_J_bayes_dist, domain=domain, maximize=True
         )
     x0 = [0 for v in range(args.latent_dim)]
     try:
@@ -265,8 +265,16 @@ def prepare_src_of_incal(x_0, x_opt):
     infile = b"test2.in"
     of_post_process.c_infile = ctypes.c_char_p(infile)
     of_post_process.iteration = 990
+    # if strtobool(args.test_bool):  # test_boolの判定
+    #     of_post_process.func_J_test(x_0, 0)
+    # else:
+    #     of_post_process.func_J(x_0, 0)
     of_post_process.func_J(x_0, 0)
     of_post_process.iteration = 991
+    # if strtobool(args.test_bool):  # test_boolの判定
+    #     of_post_process.func_J_test(x_opt, 0)
+    # else:
+    #     of_post_process.func_J(x_opt, 0)
     of_post_process.func_J(x_opt, 0)
 
     print("\n# post_process/ を\n# ", dir_main, "\n# に作成．")
@@ -281,8 +289,8 @@ def prepare_src_of_incal(x_0, x_opt):
     )
 
 
-# x0 = [0 for v in range(args.latent_dim)]
-# prepare_src_of_incal(x0, x)
+x0 = [0 for v in range(args.latent_dim)]
+prepare_src_of_incal(x0, x)
 
 
 finish = mytimer.TACK()

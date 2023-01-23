@@ -27,8 +27,8 @@ class ObjFunc():
         self.z_log = []
         self.dir_results = dir_results
         # > 共有ライブラリの準備
-        LIB_PATH = './libpixel_GCC631.so'
-        # LIB_PATH = './libpixel_GCC631_hitoki.so'
+        # LIB_PATH = './libpixel_GCC631.so'
+        LIB_PATH = './libpixel_GCC631_hitoki.so'
         self.lib = ctypes.cdll.LoadLibrary(LIB_PATH)
         # 戻り値の型を指定
         self.lib.pixel_objfunc.restype = ctypes.c_double
@@ -63,12 +63,6 @@ class ObjFunc():
         self.iteration += 1
         print("# # # Iteration =", self.iteration)
         self.z_log.append(list(x))
-        # ここで，もしself.dimensionがNoneでなかった場合の処理を入れる
-        if self.dimension is not None:
-            x_tmp = [0 for v in range(self.latent_dim)]
-            for i, x_i in enumerate(x):
-                x_tmp[i] = x_i
-            x = x_tmp
         input = torch.Tensor(x)
         img = self.vae.decoder(input)
         img = img.detach().numpy().reshape(128, 128)*-1
@@ -82,15 +76,7 @@ class ObjFunc():
         """
         self.iteration += 1
         print("# # # Iteration =", self.iteration)
-        # print(x, type(x))
         self.z_log.append(x[0].tolist())
-        # print(x, type(x))
-        # ここで，もしself.dimensionがNoneでなかった場合の処理を入れる
-        if self.dimension is not None:
-            x_tmp = [0 for v in range(self.latent_dim)]
-            for i, x_i in enumerate(x[0]):   # <--------------- x[0]!!
-                x_tmp[i] = x_i
-            x = x_tmp
         input = torch.Tensor(x)
         img = self.vae.decoder(input)
         img = img.detach().numpy().reshape(128, 128)*-1
@@ -107,8 +93,8 @@ class ObjFunc():
         J = self.calc_J_from_img(img)
         ##############################################
         self.J_log.append(J)
-        print("# func_Jの内部でsave_log_as_csv()実行．")
-        self.save_log_as_csv()
+        # print("# func_Jの内部でsave_log_as_csv()実行．")
+        # self.save_log_as_csv()
         return J
 
     def func_J_test(self, x, _):
@@ -123,32 +109,8 @@ class ObjFunc():
         self.save_log_as_csv()
         return J
 
-    def func_J_bayes(self, x):
+    def func_J_bayes_dist(self, x):
         img = self.setup_bayes(x)
-        ##############################################
-        # 目的関数の値を計算するパート
-        # # 音圧計算パート
-        J = self.calc_J_from_img(img)
-        ##############################################
-        self.J_log.append(J)
-        print("# func_Jの内部でsave_log_as_csv()実行．")
-        self.save_log_as_csv()
-        return J
-
-    def func_J_bayes_test(self, x):
-        img = self.setup_bayes(x)
-        ##############################################
-        # 目的関数の値を計算するパート
-        # # 音圧計算パート（testバージョン）
-        J = self.calc_J_from_img_test(img, x)
-        ##############################################
-        self.J_log.append(J)
-        print("# func_Jの内部でsave_log_as_csv()実行．")
-        self.save_log_as_csv()
-        return J
-
-    def func_J_dist(self, x, _):
-        img = self.setup(x)
         ##############################################
         # 目的関数の値を計算するパート
 
@@ -164,10 +126,12 @@ class ObjFunc():
         print(f"{min_d = }, {weight_min_d = }, {weight_min_d * min_d = }")
         ##############################################
         self.J_log.append([J, weight_min_d * min_d, J_total])
-        return J_total
+        print("# func_Jの内部でsave_log_as_csv()実行．")
+        self.save_log_as_csv()
+        return J
 
-    def func_J_dist_test(self, x, _):
-        img = self.setup(x)
+    def func_J_bayes_dist_test(self, x):
+        img = self.setup_bayes(x)
         ##############################################
         # 目的関数の値を計算するパート
 
@@ -183,7 +147,9 @@ class ObjFunc():
         J_total = J - weight_min_d * min_d
         ##############################################
         self.J_log.append([J, weight_min_d * min_d, J_total])
-        return J_total
+        print("# func_Jの内部でsave_log_as_csv()実行．")
+        self.save_log_as_csv()
+        return J
 
     def calc_J_from_img(self, img):
         img = img.astype(int)
