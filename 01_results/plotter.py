@@ -58,7 +58,7 @@ df = pd.read_csv(
 print(df.head())
 
 # ndarrayへの変換
-y = df.to_numpy().T
+y = df.to_numpy()[:50].T
 print(f"ndarray: {y.shape = }, {len(y) = }")
 
 # yに対応するndarrayの生成
@@ -85,7 +85,7 @@ ax.set_xlabel(ps.xlabel, fontsize=ps.FONT_LABELS)
 ax.set_ylabel(ps.ylabel, fontsize=ps.FONT_LABELS)
 
 # > y axis
-step_yticks = 0.02  # 最大値，最小値を元に設定
+step_yticks = 0.5  # 最大値，最小値を元に設定
 y_min_rounded = my_round(y_min, step_yticks, floor=True)
 y_max_rounded = my_round(y_max, step_yticks)
 y_lim = [
@@ -106,7 +106,7 @@ x_lim = [1, len(x)]
 # <
 
 # プロット:
-ax.plot(x, y, marker='o', markersize=3, linewidth=1)
+ax.plot(x, y.T, marker='o', markersize=3, linewidth=1)
 
 # sets
 ax.set_xlim(x_lim)

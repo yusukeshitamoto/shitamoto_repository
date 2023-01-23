@@ -4,26 +4,26 @@ import matplotlib.pyplot as plt
 
 # パス関連
 dirname = os.path.dirname(os.path.abspath(__file__))
-src_dir = os.path.join(dirname, "src")
-obj_dir = os.path.join(dirname, "obj")
-tmp = "test2"
+src_dir = os.path.join(dirname, "cobyla_1")
+obj_dir = os.path.join(dirname, "cobyla_1")
+tmp = "J_log"
 src_filename = tmp + ".csv"
 obj_filename = tmp + ".png"
 src_path = os.path.join(src_dir, src_filename)
 obj_path = os.path.join(obj_dir, obj_filename)
 
 # 何列目をプロットするか
-column_plotted = 1
+column_plotted = 0
 
 # ヘッダとインデックスのタイプ（該当の行・列がなければNoneとする）
-# header = None
-# index_col = None
-header = 0
-index_col = 0
+header = None
+index_col = None
+# header = 0
+# index_col = 0
 
 # ラベル
-xlabel = "$x$"
-ylabel = "$y$"
+xlabel = "$Step$"
+ylabel = "$Objective function$"
 
 # ticks
 y_ticks = "auto"
