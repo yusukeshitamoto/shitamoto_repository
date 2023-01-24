@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 # パス関連
 dirname = os.path.dirname(os.path.abspath(__file__))
-src_dir = os.path.join(dirname, "cobyla_1")
-obj_dir = os.path.join(dirname, "cobyla_1")
+src_dir = os.path.join(dirname, "bayes_2")
+obj_dir = os.path.join(dirname, "bayes_2")
 tmp = "J_log"
 src_filename = tmp + ".csv"
 obj_filename = tmp + ".png"

@@ -58,7 +58,7 @@ df = pd.read_csv(
 print(df.head())
 
 # ndarrayへの変換
-y = df.to_numpy()[:50].T
+y = df.to_numpy()[:205].T
 print(f"ndarray: {y.shape = }, {len(y) = }")
 
 # yに対応するndarrayの生成
@@ -98,7 +98,7 @@ ndarray_for_yticks = np.arange(
 # <
 
 # > x axis
-step_xticks = 10  # 最大値，最小値を元に設定
+step_xticks = 25  # 最大値，最小値を元に設定
 ndarray_for_xticks = np.arange(0, len(x)+1, step=step_xticks)[1:]
 ndarray_for_xticks = np.insert(ndarray_for_xticks, 0, 1)  # 0番目に1を挿入
 # ndarray_for_xticks = np.arange(1, len(x)+1, step_xticks)
