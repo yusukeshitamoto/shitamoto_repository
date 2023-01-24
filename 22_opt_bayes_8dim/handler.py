@@ -6,7 +6,7 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 
 # # いじるところ：
 # 日付
-date = "20230120"
+date = "20230124"
 # モデルパラメータが入ったディレクトリ
 dir_model = os.path.join(dirname, "model_parameters")
 comment = "Bayesian_optimization_with_8_dim"
@@ -43,11 +43,11 @@ with open(os.path.join(dirname, filename), "w") as f:
         dir_model_pt = os.path.join(dir_model, model + ".pt")
         dir_mu_sigma = dir_model
         latent_dim = 8
-        distance_switch = False
+        distance_switch = True
         x0 = ""
         for i in range(latent_dim):
             x0 += "0 "
-        weight_min_d = 0
+        weight_min_d = 0.1
         dx = "1.5"
         xobs_x = -0.30
         log_switch = "False"
