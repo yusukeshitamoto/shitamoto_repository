@@ -1,0 +1,3 @@
+initに関して，
+・bayes_d*_initは無意味．
+・cobylaのinitは，全dimension共通．

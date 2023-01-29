@@ -15,10 +15,22 @@ make
 #     "1"
 # )
 arr=(
-    "1"
-    "2"
-    "3"
-    "4"
+    "bayes_d2_init"
+    "bayes_d2_opt"
+    "bayes_d4_init"
+    "bayes_d4_opt"
+    "bayes_d6_init"
+    "bayes_d6_opt"
+    "bayes_d8_init"
+    "bayes_d8_opt"
+    "cobyla_d2_init"
+    "cobyla_d2_opt"
+    "cobyla_d4_init"
+    "cobyla_d4_opt"
+    "cobyla_d6_init"
+    "cobyla_d6_opt"
+    "cobyla_d8_init"
+    "cobyla_d8_opt"
 )
 echo "${arr[@]}"
 
