@@ -168,7 +168,7 @@ def opt_cobyla(dimension):
     if strtobool(args.test_bool):  # test_boolの判定
         opt.set_maxeval(args.max_iter + 10)
     else:
-        opt.set_maxeval(args.max_iter + 100)
+        opt.set_maxeval(args.max_iter + 50)
     opt.set_initial_step(args.dx)                # ----- 初期ステップの設定
 
     # Make instance of ObjFunc
@@ -304,11 +304,15 @@ def prepare_src_of_incal(x_0, x_opt):
     pixel_workdir = os.path.join(dirname, "pixel_workdir")
     os.makedirs(pixel_workdir, exist_ok=True)
 
-    # Some processes...
+    # post_processによる実験の記録を保存するディレクトリを分ける．
+    dir_main_pp = os.path.join(dir_main, "main_post_process")
+    os.makedirs(dir_main_pp, exist_ok=True)
+    dir_results_pp = os.path.join(dir_main_pp, "results_post_process")
+    os.makedirs(dir_results_pp, exist_ok=True)
     # インスタンス化
     of_post_process = tools.ObjFunc(
         dir_model_pt, args.latent_dim,
-        dir_main, dir_results,
+        dir_main_pp, dir_results_pp,
         xobs_x=args.xobs_x
     )
     # test.inファイルの修正

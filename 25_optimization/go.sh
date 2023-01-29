@@ -14,7 +14,7 @@ else
 fi
 SCRIPT=optimization.py
 
-DATE=20230125  # handlerのdateと一致してないと動かない
+DATE=20230129  # handlerのdateと一致してないと動かない
 
 arr=()   # 空の配列
 echo "${arr[@]}"
