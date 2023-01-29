@@ -12,7 +12,7 @@ exp_list=(
     "cobyla_d6"
     "bayes_d8"
     "cobyla_d8"
-)  # モデルの名前のリスト
+)
 # テストを実行：
 TEST=false
 # ファイル処理をするかどうか
