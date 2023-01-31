@@ -3,16 +3,19 @@
 # いじるところ：
 DATE=20230129
 DATE_MODEL=model_parameters
-exp_list=(
-    "bayes_d2"
-    "cobyla_d2"
-    "bayes_d4"
-    "cobyla_d4"
-    "bayes_d6"
-    "cobyla_d6"
-    "bayes_d8"
-    "cobyla_d8"
-)
+# exp_list=(
+#     "bayes_d2"
+#     "cobyla_d2"
+#     "bayes_d4"
+#     "cobyla_d4"
+#     "bayes_d6"
+#     "cobyla_d6"
+#     "bayes_d8"
+#     "cobyla_d8"
+# )
+
+exp="bayes_d4"
+
 # テストを実行：
 TEST=false
 # ファイル処理をするかどうか
@@ -51,55 +54,55 @@ then
     then
         echo "# # # "${DATE}は存在しない！！
     else
-        cd ${DATE}
-        # echo 1. ${PWD}
-        for exp in "${exp_list[@]}"; do
-            echo ${DATE}: ${exp}
-            cd ${exp}
-                # echo 2. ${PWD}
-                # イテレーション数の取り出し
-                TOTAL_ITER=`head -n 1 ${ITER}`
-                echo ${TOTAL_ITER}
+        cd ${DATE}  # DATE
 
-                # 目的関数の最大値の取り出し
-                f_opt=`head -n 1 f_opt.txt`
-                echo ${f_opt}
+        echo ${DATE}: ${exp}
 
-                # # pixel_workdirのgzipファイル化と移動
-                # if [ -e ${PIC} ]
-                # then
-                #     echo gzipファイルの処理．．．
-                #     tar -zcf ${DATE}_${exp}.tar.gz ${PIC}
-                #     # rm -r ${PIC}
-                #     # gzipファイル専用フォルダへの移動
-                #     mv ${DATE}_${exp}.tar.gz ${TOP}/${GZS}
-                # fi
+        cd ${exp}  # exp
+            # echo 2. ${PWD}
+            # イテレーション数の取り出し
+            TOTAL_ITER=`head -n 1 ${ITER}`
+            echo ${TOTAL_ITER}
 
-                # topディレクトリにlog.csvをコピー
-                cp -v J_log.csv ../${exp}_J_log.csv
-                cp -v z_log.csv ../${exp}_z_log.csv
+            # 目的関数の最大値の取り出し
+            f_opt=`head -n 1 f_opt.txt`
+            echo ${f_opt}
 
-                # incal用のsrcフォルダにコピー
-                cp -v ${PP}/${IN}991.txt ${ABS_SRC}/${exp}_init.txt
-                cp -v ${PP}/${IN}992.txt ${ABS_SRC}/${exp}_opt.txt
-                cp -v ${RES}/991.png ${ABS_SRC}/${exp}_init.png
-                cp -v ${RES}/992.png ${ABS_SRC}/${exp}_opt.png
+            # pixel_workdirのgzipファイル化と移動
+            if [ -e ${PIC} ]
+            then
+                echo gzipファイルの処理．．．
+                tar -zcf ${DATE}_${exp}.tar.gz ${PIC}
+                rm -r ${PIC}
+                # gzipファイル専用フォルダへの移動
+                mv ${DATE}_${exp}.tar.gz ${TOP}/${GZS}
+            fi
 
-                # # incalの実行と結果のコピー
-                # rm -r obj/
-                # cp -r ${SRC}/ ${ABS_VAE_WITH_OPT}/${PLT}/
-                # TMP=${PWD}
-                # cd ${ABS_VAE_WITH_OPT}/${PLT}
-                #     echo ${PWD}
-                #     rm -r obj
-                #     . go.sh
-                # cd ${TMP}
-                # mv ${ABS_VAE_WITH_OPT}/${PLT}/obj/ ./
+            # topディレクトリにlog.csvをコピー
+            cp -v J_log.csv ../${exp}_J_log.csv
+            cp -v z_log.csv ../${exp}_z_log.csv
 
-            cd ..
-            # echo 3. ${PWD}
-        done
-        cd ..
+            # incal用のsrcフォルダにコピー
+            cp -v ${PP}/${IN}991.txt ${ABS_SRC}/${exp}_init.txt
+            cp -v ${PP}/${IN}992.txt ${ABS_SRC}/${exp}_opt.txt
+            cp -v ${RES}/991.png ${ABS_SRC}/${exp}_init.png
+            cp -v ${RES}/992.png ${ABS_SRC}/${exp}_opt.png
+
+            # # incalの実行と結果のコピー
+            # rm -r obj/
+            # cp -r ${SRC}/ ${ABS_VAE_WITH_OPT}/${PLT}/
+            # TMP=${PWD}
+            # cd ${ABS_VAE_WITH_OPT}/${PLT}
+            #     echo ${PWD}
+            #     rm -r obj
+            #     . go.sh
+            # cd ${TMP}
+            # mv ${ABS_VAE_WITH_OPT}/${PLT}/obj/ ./
+
+        cd ..  # exp
+    
+
+        cd ..  # DATE
     fi
 fi
 
