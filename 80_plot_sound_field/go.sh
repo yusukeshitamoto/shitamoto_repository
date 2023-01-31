@@ -32,6 +32,16 @@ arr=(
     "cobyla_d8_init"
     "cobyla_d8_opt"
 )
+arr=(
+    "bayes_d4_init"
+    "bayes_d4_opt"
+    "bayes_d8_init"
+    "bayes_d8_opt"
+    "cobyla_d4_init"
+    "cobyla_d4_opt"
+    "cobyla_d8_init"
+    "cobyla_d8_opt"
+)
 echo "${arr[@]}"
 
 for val in "${arr[@]}"; do

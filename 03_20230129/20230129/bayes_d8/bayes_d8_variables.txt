@@ -1,0 +1,38 @@
+2023-01-30 09:58:56.715036
+変数の記録開始．
+
+
+Experiments_with_dimensions_4_8_2_6
+
+# モデルに関する結果が入るディレクトリ
+	dir_main = /home/hitoki/Desktop/shitamoto_repository/25_optimization/20230129/bayes_d8
+# 実験固有の文字列
+	exp_id = bayes_d8
+# モデルパラメータファイルのフルパス
+	dir_model_pt = /home/hitoki/Desktop/shitamoto_repository/25_optimization/model_parameters/model.pt
+# muとsigmaのデータがあるディレクトリ
+	dir_mu_sigma = /home/hitoki/Desktop/shitamoto_repository/25_optimization/model_parameters
+# 実験対象（"bayes"か"cobyla"）
+	experimental_subject = bayes
+# 潜在変数の次元
+	latent_dim = 8
+# 距離を目的関数に加えるか（str型であることに注意，strtobool()）
+	distance_switch = False
+# 最適化の初期値．
+	x0 = [['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0']]
+# 最小のdに掛け合わせる重み
+	weight_min_d = 0.0
+# 初期ステップ
+	dx = 1.5
+# 観測点のx座標
+	xobs_x = -0.25
+# 詳細なログをとるかどうかの選択（str型であることに注意，strtobool()）
+	log_switch = False
+# test関数を使う場合は "True" としておく．本番の関数は激重のため．
+	test_bool = False
+# 実験に対するコメント
+	comment = Experiments_with_dimensions_4_8_2_6
+# 構造最適化におけるiterationの最大値
+	max_iter = 300
+# 構造最適化における設計変数の次元
+	dimension = 8
