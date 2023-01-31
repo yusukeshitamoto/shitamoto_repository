@@ -30,6 +30,7 @@ PIC=pixel_workdir
 IN=CHECK_U_INCAL
 ITER=total_iteration.txt
 RES=results
+RES_PP=main_post_process/results_post_process
 PP=post_process
 OPT=opt_shape.png
 SRC=src
@@ -85,8 +86,11 @@ then
             # incal用のsrcフォルダにコピー
             cp -v ${PP}/${IN}991.txt ${ABS_SRC}/${exp}_init.txt
             cp -v ${PP}/${IN}992.txt ${ABS_SRC}/${exp}_opt.txt
-            cp -v ${RES}/991.png ${ABS_SRC}/${exp}_init.png
-            cp -v ${RES}/992.png ${ABS_SRC}/${exp}_opt.png
+            cp -v ${RES_PP}/991.png ${ABS_SRC}/${exp}_init.png
+            cp -v ${RES_PP}/992.png ${ABS_SRC}/${exp}_opt.png
+
+            # post_processの移動
+            mv ${PP} ${TOP}/${GZS}/${exp}_${PP}
 
             # # incalの実行と結果のコピー
             # rm -r obj/
