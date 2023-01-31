@@ -359,5 +359,5 @@ def execute(test=True):
 
 
 if __name__ == "__main__":
-    execute(test=True)
+    execute(test=False)
     plt.close('all')
