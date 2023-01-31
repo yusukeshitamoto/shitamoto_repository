@@ -9,8 +9,10 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 J_log_csv = "J_log.csv"
 J_log_png = "J_log.png"
 
+large_step_xticks = 50
 
-def execute_test(test=True):
+
+def execute(test=True):
     src_dir = os.path.join(dirname, "src")
     obj_dir = os.path.join(dirname, "obj")
 
@@ -166,9 +168,196 @@ def execute_test(test=True):
 
     # <
 
+    src_dir = os.path.join(dirname, "20230129")
+    obj_dir_test = os.path.join(dirname, "20230129_test")
+    obj_dir = os.path.join(dirname, "20230129")
+
+    y_max = 3
+    y_min = 0
+
+    # > bayes_d4_J_log
+    tmp = "bayes_d4_J_log"
+    src_filename = tmp + ".csv"
+    obj_filename = tmp + ".png"
+    if test:
+        obj_dir = obj_dir_test
+    else:
+        obj_dir = obj_dir
+
+    # ヘッダとインデックスのタイプ（該当の行・列がなければNoneとする）
+    header = None
+    index_col = None
+
+    # step_*ticks
+    step_xticks = large_step_xticks
+    step_yticks = 0.5
+
+    # min_max
+    y_min = y_min
+    y_max = y_max
+
+    plotter.MyPlotter(
+        src_dir, src_filename, obj_dir, obj_filename,
+        header, index_col, step_xticks, step_yticks,
+        y_min=y_min, y_max=y_max,
+        FIG_SIZE=(8, 5),
+    )
+
+    # <
+
+    # > bayes_d8_J_log
+    tmp = "bayes_d8_J_log"
+    src_filename = tmp + ".csv"
+    obj_filename = tmp + ".png"
+    if test:
+        obj_dir = obj_dir_test
+    else:
+        obj_dir = obj_dir
+
+    # ヘッダとインデックスのタイプ（該当の行・列がなければNoneとする）
+    header = None
+    index_col = None
+
+    # step_*ticks
+    step_xticks = large_step_xticks
+    step_yticks = 0.5
+
+    # min_max
+    y_min = y_min
+    y_max = y_max
+
+    plotter.MyPlotter(
+        src_dir, src_filename, obj_dir, obj_filename,
+        header, index_col, step_xticks, step_yticks,
+        y_min=y_min, y_max=y_max,
+        FIG_SIZE=(8, 5),
+    )
+
+    # <
+
+    # > cobyla_d4_J_log
+    tmp = "cobyla_d4_J_log"
+    src_filename = tmp + ".csv"
+    obj_filename = tmp + ".png"
+    if test:
+        obj_dir = obj_dir_test
+    else:
+        obj_dir = obj_dir
+
+    # ヘッダとインデックスのタイプ（該当の行・列がなければNoneとする）
+    header = None
+    index_col = None
+
+    # step_*ticks
+    step_xticks = large_step_xticks
+    step_yticks = 0.5
+
+    # min_max
+    y_min = y_min
+    y_max = y_max
+
+    plotter.MyPlotter(
+        src_dir, src_filename, obj_dir, obj_filename,
+        header, index_col, step_xticks, step_yticks,
+        y_min=y_min, y_max=y_max,
+        FIG_SIZE=(8, 5),
+    )
+
+    # <
+
+    # > cobyla_d8_J_log
+    tmp = "cobyla_d8_J_log"
+    src_filename = tmp + ".csv"
+    obj_filename = tmp + ".png"
+    if test:
+        obj_dir = obj_dir_test
+    else:
+        obj_dir = obj_dir
+
+    # ヘッダとインデックスのタイプ（該当の行・列がなければNoneとする）
+    header = None
+    index_col = None
+
+    # step_*ticks
+    step_xticks = large_step_xticks
+    step_yticks = 0.5
+
+    # min_max
+    y_min = y_min
+    y_max = y_max
+
+    plotter.MyPlotter(
+        src_dir, src_filename, obj_dir, obj_filename,
+        header, index_col, step_xticks, step_yticks,
+        y_min=y_min, y_max=y_max,
+        FIG_SIZE=(8, 5),
+    )
+
+    # <
+
+    # > cobyla_d4_J_log_50
+    tmp = "cobyla_d4_J_log_50"
+    src_filename = tmp + ".csv"
+    obj_filename = tmp + ".png"
+    if test:
+        obj_dir = obj_dir_test
+    else:
+        obj_dir = obj_dir
+
+    # ヘッダとインデックスのタイプ（該当の行・列がなければNoneとする）
+    header = None
+    index_col = None
+
+    # step_*ticks
+    step_xticks = 10
+    step_yticks = 0.5
+
+    # min_max
+    y_min = y_min
+    y_max = y_max
+
+    plotter.MyPlotter(
+        src_dir, src_filename, obj_dir, obj_filename,
+        header, index_col, step_xticks, step_yticks,
+        y_min=y_min, y_max=y_max,
+        FIG_SIZE=(8, 5),
+    )
+
+    # <
+
+    # > cobyla_d8_J_log_50
+    tmp = "cobyla_d8_J_log_50"
+    src_filename = tmp + ".csv"
+    obj_filename = tmp + ".png"
+    if test:
+        obj_dir = obj_dir_test
+    else:
+        obj_dir = obj_dir
+
+    # ヘッダとインデックスのタイプ（該当の行・列がなければNoneとする）
+    header = None
+    index_col = None
+
+    # step_*ticks
+    step_xticks = 10
+    step_yticks = 0.5
+
+    # min_max
+    y_min = y_min
+    y_max = y_max
+
+    plotter.MyPlotter(
+        src_dir, src_filename, obj_dir, obj_filename,
+        header, index_col, step_xticks, step_yticks,
+        y_min=y_min, y_max=y_max,
+        FIG_SIZE=(8, 5),
+    )
+
+    # <
+
     return
 
 
 if __name__ == "__main__":
-    execute_test()
+    execute(test=True)
     plt.close('all')
