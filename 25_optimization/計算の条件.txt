@@ -16,7 +16,7 @@ Start debug.
 
 # # incal.c, line = 118, function: isohelm2d_incal_input
 内点計算用のグリッド：
-	nx = 4, ny = 4
+	nx = 128, ny = 128
 
 # # incal.c, line = 121, function: isohelm2d_incal_input
 内点計算の領域（x）：
